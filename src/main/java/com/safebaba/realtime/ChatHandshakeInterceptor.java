@@ -1,0 +1,8 @@
+package com.safebaba.realtime;
+import com.safebaba.security.JwtUtils; import com.safebaba.repository.ConversaRepository; import org.springframework.http.server.ServerHttpRequest; import org.springframework.http.server.ServerHttpResponse; import org.springframework.stereotype.Component; import org.springframework.web.socket.WebSocketHandler; import org.springframework.web.socket.server.HandshakeInterceptor; import java.net.URI; import java.util.*;
+@Component public class ChatHandshakeInterceptor implements HandshakeInterceptor {
+ private final JwtUtils jwt; private final ConversaRepository conversas;
+ public ChatHandshakeInterceptor(JwtUtils j,ConversaRepository c){jwt=j;conversas=c;}
+ @Override public boolean beforeHandshake(ServerHttpRequest req,ServerHttpResponse res,WebSocketHandler h,Map<String,Object> attrs){try{URI u=req.getURI();String q=u.getQuery();if(q==null)return false;String token=Arrays.stream(q.split("&")).filter(x->x.startsWith("token=")).map(x->java.net.URLDecoder.decode(x.substring(6),java.nio.charset.StandardCharsets.UTF_8)).findFirst().orElse("");if(!jwt.valido(token))return false;String email=jwt.email(token);String[] parts=u.getPath().split("/");Long id=Long.valueOf(parts[parts.length-1]);var c=conversas.findById(id).orElse(null);if(c==null)return false;boolean allowed=email.equalsIgnoreCase(c.getPai().getUsuario().getEmail())||email.equalsIgnoreCase(c.getBaba().getUsuario().getEmail());if(!allowed)return false;attrs.put("conversaId",id);attrs.put("email",email);return true;}catch(Exception e){return false;}}
+ @Override public void afterHandshake(ServerHttpRequest r,ServerHttpResponse s,WebSocketHandler h,Exception e){}
+}

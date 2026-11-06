@@ -1,0 +1,18 @@
+ALTERACOES DESTA VERSAO
+
+1) AGENDAMENTO NORMAL (Encontrar baba > Agendar)
+- O endereco deixou de ser um unico campo.
+- Agora possui rua/avenida, numero, complemento, bairro, CEP, cidade, UF e ponto de referencia.
+- Rua e numero antigos sao aproveitados quando o endereco salvo estiver no formato simples "Rua, 123".
+- O frontend junta os campos em um unico endereco para manter compatibilidade com a API e o banco atuais.
+
+2) PRECISO DE UMA BABA AGORA
+- A tela apresenta ate 3 babas verificadas cadastradas na cidade do responsavel, ordenadas pelo indice de confianca.
+- O responsavel informa o endereco completo e escolhe quantidade de criancas e duracao.
+- Ao clicar em Chamar agora, e criado um agendamento marcado como urgente e o usuario vai para a tela de acompanhamento.
+- A solicitacao fica PENDENTE ate a baba aceitar ou recusar. Portanto, o clique nao garante que uma profissional ja esteja a caminho.
+- O mapa e demonstrativo e usa posicoes simuladas, nao GPS nem distancia em tempo real.
+- A busca atual nao consulta disponibilidade em tempo real nem envia notificacao push/SMS. A baba precisa ver a solicitacao na agenda do sistema.
+
+LIMITACAO
+O formulario detalhado foi aplicado ao fluxo de agendamento normal e ao fluxo Preciso agora. O endereco do perfil do responsavel nao foi convertido para campos separados, pois o backend atual nao oferece uma operacao de edicao desse perfil. O endereco do atendimento e salvo no agendamento como texto completo.

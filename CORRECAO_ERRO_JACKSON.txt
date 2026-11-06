@@ -1,0 +1,10 @@
+CORREÇÃO — erro ObjectMapper / jackson-databind
+
+O ChatService usa com.fasterxml.jackson.databind.ObjectMapper para serializar mensagens do WebSocket.
+O pom.xml não declarava a dependência jackson-databind, por isso o Maven não encontrava a classe.
+Foi adicionada a dependência com.fasterxml.jackson.core:jackson-databind:2.20.1.
+
+Para testar no Windows, abra PowerShell nesta pasta e execute:
+  .\mvnw.cmd clean compile
+
+Na primeira execução, o Maven precisará de internet para baixar a dependência.

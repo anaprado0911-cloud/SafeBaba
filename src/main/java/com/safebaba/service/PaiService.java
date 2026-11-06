@@ -1,0 +1,3 @@
+package com.safebaba.service;
+import com.safebaba.model.PaiResponsavel; import com.safebaba.repository.PaiRepository; import org.springframework.stereotype.Service;
+@Service public class PaiService { private final PaiRepository repo; public PaiService(PaiRepository repo){this.repo=repo;} public PaiResponsavel buscar(Long id){return repo.findById(id).orElseThrow(()->new IllegalArgumentException("Responsável não encontrado."));} public PaiResponsavel porUsuario(Long id){return repo.findByUsuarioId(id).orElseThrow(()->new IllegalArgumentException("Perfil de responsável não encontrado."));} public PaiResponsavel salvar(PaiResponsavel p){return repo.save(p);} }

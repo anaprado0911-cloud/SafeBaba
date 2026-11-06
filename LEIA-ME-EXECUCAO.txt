@@ -1,0 +1,71 @@
+SAFE BABA - EXECUCAO
+
+REQUISITOS
+- Java 17 ou superior
+- Node.js 18.19+ ou 20+ (para compilar o frontend)
+- Acesso a uma instância Microsoft SQL Server
+
+PREPARAR O BANCO (uma vez)
+1) Abra o SQL Server Management Studio (SSMS).
+2) Conecte-se ao servidor com uma conta autorizada.
+3) Abra e execute database/create-database.sql.
+4) Solicite/crie um login SQL com acesso ao banco safebaba (ou use a autenticação aprovada pela TI).
+
+CONFIGURAR A APLICACAO
+Defina as variáveis de ambiente antes de iniciar. Exemplo no PowerShell:
+  $env:DB_URL = "jdbc:sqlserver://NOME-DO-SERVIDOR:1433;databaseName=safebaba;encrypt=true;trustServerCertificate=false"
+  $env:DB_USERNAME = "usuario_aplicacao"
+  $env:DB_PASSWORD = "senha"
+  $env:APP_JWT_SECRET = "CHAVE_BASE64_COM_PELO_MENOS_32_BYTES"
+
+Se o SQL Server usar certificado interno não reconhecido pelo Java, peça à TI o certificado/TrustStore correto. Não desative a validação TLS sem autorização.
+
+EXECUTAR
+1) Compile o frontend uma vez: build-frontend.bat
+2) No terminal do VS Code, na pasta do projeto:
+   .\mvnw.cmd spring-boot:run
+3) Abra http://localhost:8080
+
+Desenvolvimento do frontend:
+  cd frontend
+  npm install
+  npm start
+  -> http://localhost:4200
+
+DADOS DE DEMONSTRACAO
+Por segurança, os usuários e perfis fictícios NÃO são criados automaticamente.
+Para habilitar somente em banco de teste/demonstração:
+  $env:APP_SEED_ENABLED = "true"
+As contas fictícias usam senha 123456. Nunca habilite essa opção em produção.
+
+IMPORTANTE
+- Não execute SafeBabaApplication diretamente; use o Maven Wrapper.
+- O primeiro comando pode demorar porque o Maven baixa as dependências.
+- O projeto utiliza exclusivamente Microsoft SQL Server. H2 e MySQL foram removidos.
+- spring.jpa.hibernate.ddl-auto=update cria/atualiza tabelas automaticamente. Antes de usar
+  em produção, faça backup e alinhe a evolução do esquema com a equipe responsável pelo banco.
+- Para acessar o banco fora da rede da empresa, é necessária VPN ou outra conexão remota
+  autorizada pela TI. O Wi-Fi corporativo só dá acesso quando o computador está nessa rede.
+
+DISPONIBILIDADE IMEDIATA DA BABA
+1. Entre com uma conta de babá.
+2. Abra Meu painel.
+3. Ative “Estou disponível para atendimento imediato”.
+4. Entre como responsável e abra “Preciso agora”.
+5. A busca mostra somente babás verificadas que ativaram a disponibilidade e pertencem à cidade do responsável.
+
+A disponibilidade é um sinal manual persistido no banco, não GPS ou agenda em tempo real.
+
+EXECUCAO LOCAL NO SQL SERVER EXPRESS (SQLEXPRESS)
+1) Confirme no SSMS que o banco safebaba existe.
+2) Confirme que o login safebaba_app consegue conectar e acessar o banco.
+3) Confirme que os serviços SQL Server (SQLEXPRESS) e SQL Server Browser estão em execução.
+4) Abra PowerShell na pasta raiz do projeto e execute:
+   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+   .\executar-local-sqlserver.ps1
+5) Informe o login safebaba_app e a senha criada no SSMS.
+6) Abra http://localhost:8080
+
+A URL local usa instanceName=SQLEXPRESS, permitindo localizar a porta dinâmica por meio
+do SQL Server Browser. A opção trustServerCertificate=true é somente para desenvolvimento
+local. Não use essa configuração como padrão em produção.

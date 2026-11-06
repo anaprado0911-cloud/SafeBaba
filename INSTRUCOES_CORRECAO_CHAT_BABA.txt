@@ -1,0 +1,29 @@
+CORREÇÃO DO CHAT - SAFEBABA
+
+O que foi alterado:
+- Backend: endpoint GET /api/conversas/minhas, exclusivo para a babá autenticada.
+- Backend: lista conversas da babá, última mensagem e contador de mensagens não lidas.
+- Backend: ao abrir uma conversa, mensagens recebidas são marcadas como lidas.
+- Frontend: botão "Minhas mensagens" no painel da babá.
+- Frontend: tela de caixa de entrada e tela de conversa/resposta.
+- Campo de mensagens: área de histórico compacta (150px mínima / 360px máxima) e campo de digitação separado; no celular os controles ficam empilhados.
+
+COMO APLICAR:
+1. Faça backup da pasta atual do projeto.
+2. Extraia este ZIP em uma pasta nova.
+3. Configure a conexão SQL Server normalmente no application.properties/application-local.properties que já acompanha o projeto.
+4. Backend: na raiz SafeBaba, execute:
+   .\mvnw.cmd clean test
+   .\mvnw.cmd spring-boot:run
+5. Frontend: entre em frontend e execute:
+   npm install
+   npm start
+6. Entre com uma conta do tipo BABA e abra o painel > Minhas mensagens.
+7. Em outra sessão/navegador, entre como PAI, abra o perfil da babá e envie uma mensagem.
+
+Não é necessário alterar tabelas nem executar script SQL adicional: a implementação utiliza conversas, mensagens e a coluna lida já existentes.
+
+IMPORTANTE:
+- A caixa de entrada lista conversas existentes. Para que uma conversa apareça, o responsável precisa ter iniciado o chat pelo perfil da babá.
+- O acesso ao endpoint é autenticado e o serviço valida que o usuário é uma babá e só lista as conversas vinculadas ao próprio perfil.
+- Não foi possível executar npm build nesta sessão porque node_modules não está incluído no ZIP. Execute os comandos acima no seu computador e envie qualquer erro literal para correção.

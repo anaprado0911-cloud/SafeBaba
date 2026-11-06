@@ -1,0 +1,3 @@
+package com.safebaba.security;
+import com.safebaba.repository.UsuarioRepository; import org.springframework.security.core.userdetails.*; import org.springframework.stereotype.Service;
+@Service public class UserDetailsServiceImpl implements UserDetailsService { private final UsuarioRepository repo; public UserDetailsServiceImpl(UsuarioRepository repo){this.repo=repo;} @Override public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException { return CustomUserDetails.from(repo.findByEmailIgnoreCase(email).orElseThrow(()->new UsernameNotFoundException("Usuário não encontrado"))); } }

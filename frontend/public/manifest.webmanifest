@@ -1,0 +1,11 @@
+{
+  "name": "Safe Babá",
+  "short_name": "Safe Babá",
+  "description": "Conecte famílias a babás qualificadas e verificadas.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8F1",
+  "theme_color": "#FCE8E5",
+  "lang": "pt-BR",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
