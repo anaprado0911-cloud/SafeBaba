@@ -16,7 +16,7 @@ import { msgErro } from '../core/util';
       <!-- SOS aparece primeiro para dar prioridade aos pedidos de ajuda -->
       <section class="central-sos" aria-labelledby="titulo-sos">
         <div class="linha">
-          <h2 id="titulo-sos">🚨 Central de emergência — SOS</h2>
+          <h2 id="titulo-sos"> Central de emergência — SOS</h2>
           <strong>{{ sos().length }} alerta(s)</strong>
         </div>
         @if (sos().length === 0) {

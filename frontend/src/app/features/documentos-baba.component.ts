@@ -229,26 +229,25 @@ import { msgErro } from '../core/util';
 
 
       <!-- POR QUE PEDIMOS ISSO -->
+      
       <div class="caixa privacidade-doc">
 
-        <div
-          class="privacidade-icone"
-          aria-hidden="true">
-        </div>
+  <div
+    class="privacidade-icone"
+    aria-hidden="true">
+  </div>
 
-        <div>
+  <div class="privacidade-conteudo">
 
-          <h3>Por que pedimos isso?</h3>
+    <h3>Por que pedimos isso?</h3>
 
-          <p>
-            O documento ajuda a confirmar a identidade da babá antes
-            da verificação do perfil. Ele não fica disponível para as
-            famílias: é usado pela moderação para análise de segurança.
-          </p>
+    <p>
+     Queremos tornar a plataforma mais segura para todos. Por isso, solicitamos um documento de identificação para confirmar que o perfil pertence à pessoa cadastrada. O documento é analisado exclusivamente pela equipe SafeBabá e não fica visível para as famílias. Essa etapa ajuda a aumentar a confiança e a segurança na conexão entre babás e famílias.
+    </p>
 
-        </div>
+  </div>
 
-      </div>
+</div>
 
     </section>
 
@@ -1039,30 +1038,31 @@ import { msgErro } from '../core/util';
        POR QUE PEDIMOS ISSO
        ===================================================== */
 
-    .privacidade-doc {
+       .privacidade-doc {
+  display: flex !important;
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box;
 
-      width: 100%;
+  align-items: center;
+  gap: 1.2rem;
 
-      display: flex;
-      align-items: flex-start;
+  margin: 1.5rem 0 0;
+  padding: 1.5rem 2rem;
 
-      gap: 1rem;
+  background: #ffffff;
+  border: 2px solid #e3c4b0;
+  border-radius: 20px;
 
-      margin: 1.5rem 0 0;
+  box-shadow: 0 8px 22px rgba(117, 74, 59, .06);
 
-      padding: 1.2rem;
+  grid-column: 1 / -1;
+}
 
-      background: #ffffff;
-
-      border: 2px solid #e3c4b0;
-
-      border-radius: 20px;
-
-      box-shadow:
-        0 8px 22px rgba(117, 74, 59, .06);
-
-      box-sizing: border-box;
-    }
+.privacidade-conteudo {
+  flex: 1;
+  min-width: 0;
+}
 
 
     /* Escudo de privacidade sem emoji */
@@ -1289,6 +1289,23 @@ import { msgErro } from '../core/util';
       }
 
     }
+
+    /* =====================================================
+   AJUSTE DA LARGURA DO TEXTO
+   ===================================================== */
+
+.privacidade-conteudo {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+.privacidade-doc p {
+  width: 100%;
+  max-width: none !important;
+  line-height: 1.6;
+  margin: .1rem 0;
+}
 
   `]
 })
